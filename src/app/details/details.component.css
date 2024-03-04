@@ -63,6 +63,14 @@
     border-left: none;
     border-bottom: solid .3px;
   }
+  
+.container button{ /* You Can Name it what you want*/
+margin-right:5px;
+}
+.container button:last-child{
+margin-right:0px;
+/*so the last one dont push the div thas giving the space only between the inputs*/
+}
   @media (max-width: 1024px) {
     .listing-photo {
       width: 100%;

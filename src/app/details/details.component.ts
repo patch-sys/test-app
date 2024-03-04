@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HousingService } from '../housing.service';
 import { HousingLocation } from '../housinglocation';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-details',
@@ -39,7 +41,10 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
         <label for="email">Email</label>
         <input id="email" type="email" formControlName="email">
+        <div class="container">
+        <button class="primary" (click)="backClicked()">Back</button>
         <button type="submit" class="primary">Apply now</button>
+        </div>
       </form>
     </section>
   </article>
@@ -47,7 +52,6 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent {
-  
 
   route: ActivatedRoute = inject(ActivatedRoute);
   housingService = inject(HousingService);
@@ -59,7 +63,7 @@ export class DetailsComponent {
     email: new FormControl('')
   });
 
-  constructor() {
+  constructor(private router: Router) {
     const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
     this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
       this.housingLocation = housingLocation;
@@ -72,6 +76,10 @@ export class DetailsComponent {
       this.applyForm.value.lastName ?? '',
       this.applyForm.value.email ?? ''
     );
+  }
+
+  backClicked() {
+    this.router.navigate(['/']); // Navigate to the root/main page
   }
 
 }
